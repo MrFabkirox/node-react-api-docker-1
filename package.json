@@ -1,0 +1,14 @@
+{
+    "name": "node-react-api-docker-1",
+    "version": "1.0.0",
+    "description": "desc",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "author": "Fabrice Esope",
+    "license": "ISC",
+    "dependencies": {
+      "express": "^4.16.4",
+    }
+  }

@@ -1,0 +1,93 @@
+
+docker exec -it cont-name /bin/bash
+docker container run -d -p 80:80 -v $(pwd):/path/in/img --name my-cont-name stock-img-name
+
+docker container run -d --rm --name name1 -v $(pwd)/where-ever/ -w/src -p 80:80 cont-name /bin/bash --env PASSWORD=password
+docker container run -it --rm --name name1 -v $(pwd)/where-ever/ -w/src -p 80:80 cont-name /bin/bash
+
+docker container ls -a
+docker ps -a
+
+docker stop id
+docker start id
+docker attach id
+
+sudo docker rm $(sudo docker ps -aq) -f
+docker rm id
+docker container rm id
+docker image rm id
+docker pull image-name
+docker inspect container-name
+
+
+---------
+FROM nginx:latest
+
+WORKDIR /path/in/img
+
+COPY . .
+---------
+docker image build -t fabriceesope/some-website . # . for everything in the current folder
+docker images # img now in there
+docker container run -d -p 8port-reachable:8initial-img-port fabriceesope/some-website
+
+docker push fabriceesope/some-website
+docker login
+
+# using docker run or the Dockerfile with:
+docker-compose up
+
+--------
+FROM node:11
+
+WORKDIR /usr/src/app
+
+COPY package.json ./
+
+RUN npm i
+
+COPY . .
+
+EXPOSE 5000
+
+CMD ["npm", "start"]
+------------
+
+docker run -p 80:4000 -v $(pwd):/site bretfisher/jekyll-serve
+----------
+version: '2'
+
+services:
+  jekyll:
+    image: bretfisher/jekyll-serve
+    volumes:
+      - ./site
+    ports:
+      - '80:4000'
+----------
+
+----------
+version: '3'
+services:
+  app:
+    container_name: node-react-api-docker-1
+    restart: always
+    build: .
+    ports:
+      - '80:3000'
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '2707:2707'
+----------
+
+.dockerignore
+----------
+node_modules
+package-lock.json
+npm-debug.log
+----------
+
